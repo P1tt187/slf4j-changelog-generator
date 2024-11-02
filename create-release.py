@@ -28,8 +28,8 @@ with open(changelog_path, 'r') as f:
     changelog_content = f.read()
 
 print("Parsing changelog entries...")
-# Regex to match changelog version headers
-version_entries = re.findall(r'## ([0-9]+\.[0-9]+\.[0-9]+) - (.+?)\\n(.*?)\\n(?=## |$)', changelog_content, re.DOTALL)
+# Updated regex pattern to correctly match the changelog structure
+version_entries = re.findall(r'## ([0-9]+\.[0-9]+\.[0-9]+) - (.+?)\n(.*?)\n(?=## |$)', changelog_content, re.DOTALL)
 
 if not version_entries:
     print("No version entries found in the changelog.")
