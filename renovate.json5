@@ -1,7 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>P1tt187/renovate-config"
+    "local>P1tt187/renovate-config",
+    ":automergeAll"
+    ":skipStatusChecks"
   ],
   "customManagers": [
     {
