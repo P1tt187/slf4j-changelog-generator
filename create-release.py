@@ -38,7 +38,7 @@ def format_release_notes(release_notes):
         # Check if the line starts with a bullet point
         if line.startswith("-"):
             if formatted_notes:  # If there's already a note, append to it
-                formatted_notes[-1] += ' ' + line[1:].strip()
+                formatted_notes[-1] += '- ' + line[1:].strip()
             else:
                 formatted_notes.append(line[1:].strip())  # Start a new note
         else:
