@@ -37,15 +37,17 @@ def format_release_notes(release_notes):
         
         # Check if the line starts with a bullet point
         if line.startswith("•"):
+            # Combine lines that follow the bullet point into the last entry
             if formatted_notes:  # If there's already a note, append to it
-                formatted_notes[-1] += ' ' + line[1:].strip()
+                formatted_notes[-1] += ' ' + line[1:].strip()  # Remove the bullet point
             else:
-                formatted_notes.append(line[1:].strip())  # Start a new note
+                formatted_notes.append(line[1:].strip())  # Start a new note without the bullet point
         else:
             # If not a bullet point, just add the line as a new entry
             formatted_notes.append(line)
 
-    return '\n'.join(formatted_notes)
+    # Format the output to markdown bullet points without the bullet characters
+    return '\n'.join(f"- {note}" for note in formatted_notes)
 
 def main():
     repo = "P1tt187/slf4j-changelog-generator"
