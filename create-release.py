@@ -36,7 +36,7 @@ def format_release_notes(release_notes):
         line = line.strip()  # Remove leading/trailing whitespace
         
         # Check if the line starts with a bullet point
-        if line.startswith("•"):
+        if line.startswith("-"):
             if formatted_notes:  # If there's already a note, append to it
                 formatted_notes[-1] += ' ' + line[1:].strip()
             else:
