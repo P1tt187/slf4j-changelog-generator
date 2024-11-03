@@ -2,6 +2,16 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
+def close_unclosed_p_tags(html_content):
+    # Add a closing </p> tag before each <p> tag if there is no </p> before it
+    html_content = re.sub(r'(<p[^>]*>)(?!.*</p>)', r'</p>\1', html_content)
+    
+    # Remove any redundant </p> at the start of the document
+    if html_content.startswith("</p>"):
+        html_content = html_content[4:]
+
+    return html_content
+
 # URL of the SLF4J news page
 url = "https://www.slf4j.org/news.html"
 
@@ -9,8 +19,10 @@ url = "https://www.slf4j.org/news.html"
 response = requests.get(url)
 response.raise_for_status()  # Check if the request was successful
 
+correctedHtml = close_unclosed_p_tags(response.text)
+
 # Parse the HTML content
-soup = BeautifulSoup(response.text, 'html.parser')
+soup = BeautifulSoup(correctedHtml, 'html.parser')
 
 # Open the markdown file for writing with UTF-8 encoding
 with open("CHANGELOG.md", "w", encoding="utf-8") as changelog:
