@@ -37,8 +37,8 @@ with open("CHANGELOG.md", "w", encoding="utf-8") as changelog:
         # Collect and write each paragraph content associated with the release
         next_sibling = header.find_next_sibling()
         while next_sibling and next_sibling.name == 'p':
-            content = next_sibling.get_text(strip=True).replace("•","")
-            changelog.write(f"- {content}\n")
+            content = next_sibling.get_text(strip=True).replace("•","-")
+            changelog.write(f"{content}\n")
             next_sibling = next_sibling.find_next_sibling()
         
         # Add a blank line after each release entry
