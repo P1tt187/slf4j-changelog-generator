@@ -62,7 +62,7 @@ def main():
     for version, date, name, notes in matches:
         release_notes = notes  # Format notes to be more readable
         if version not in existing_versions:
-            create_release(repo, f"v{version}", release_notes)
+            create_release(repo, f"{version}", release_notes)
 
 if __name__ == "__main__":
     main()
