@@ -33,4 +33,5 @@ jobs:
       - name: Create releases from changelog
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 create-release.py
+#        run: python3 create-release.py
+        run: python3 delete-releases.py
