@@ -36,7 +36,7 @@ def format_release_notes(release_notes):
         line = line.strip()  # Remove leading/trailing whitespace
         
         # Check if the line starts with a bullet point
-        if line.startswith("-"):
+        if not line.startswith("-"):
             if formatted_notes:  # If there's already a note, append to it
                 formatted_notes[-1] += '- ' + line[1:].strip()
             else:
@@ -60,7 +60,7 @@ def main():
     matches = re.findall(pattern, changelog_content)
 
     for version, date, name, notes in matches:
-        release_notes = format_release_notes(notes)  # Format notes to be more readable
+        release_notes = notes  # Format notes to be more readable
         if version not in existing_versions:
             create_release(repo, version, release_notes)
 
