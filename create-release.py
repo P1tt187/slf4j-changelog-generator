@@ -58,6 +58,7 @@ def main():
 
     pattern = r'## ([0-9]+\.[0-9]+\.[0-9]+) - ([0-9\-]+) - Release of (.*?)\n([\s\S]*?)(?=\n##|\Z)'
     matches = re.findall(pattern, changelog_content)
+    matches.reverse()
 
     for version, date, name, notes in matches:
         release_notes = notes  # Format notes to be more readable
