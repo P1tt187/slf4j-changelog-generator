@@ -28,6 +28,25 @@ def create_release(repo, tag, release_notes):
     else:
         print(f"Failed to create release for version {tag}: {response.status_code} - {response.json()}")
 
+def format_release_notes(release_notes):
+    # Normalize newlines, joining text on the same line
+    formatted_notes = []
+    
+    for line in release_notes.splitlines():
+        line = line.strip()  # Remove leading/trailing whitespace
+        
+        # Check if the line starts with a bullet point
+        if line.startswith("•"):
+            if formatted_notes:  # If there's already a note, append to it
+                formatted_notes[-1] += ' ' + line[1:].strip()
+            else:
+                formatted_notes.append(line[1:].strip())  # Start a new note
+        else:
+            # If not a bullet point, just add the line as a new entry
+            formatted_notes.append(line)
+
+    return '\n'.join(formatted_notes)
+
 def main():
     repo = "P1tt187/slf4j-changelog-generator"
     existing_releases = get_existing_releases(repo)
@@ -41,7 +60,7 @@ def main():
     matches = re.findall(pattern, changelog_content)
 
     for version, date, name, notes in matches:
-        release_notes = notes.replace("\n", " ").replace("•", "- ")  # Format notes to be more readable
+        release_notes = format_release_notes(notes)  # Format notes to be more readable
         if version not in existing_versions:
             create_release(repo, version, release_notes)
 
