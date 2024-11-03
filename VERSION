@@ -1,2 +1,2 @@
 # renovate: datasource=maven depName=org.slf4j:slf4j-api
-SLF4J_VERSION=2.0.15
+SLF4J_VERSION="2.0.15"
