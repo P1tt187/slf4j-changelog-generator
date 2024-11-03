@@ -29,30 +29,24 @@ def create_release(repo, tag, release_notes):
         print(f"Failed to create release for version {tag}: {response.status_code} - {response.json()}")
 
 def format_release_notes(release_notes):
-    # Normalize newlines and handle bullet points
+    # Normalize newlines, joining text on the same line
     formatted_notes = []
-    current_note = ""
-
+    
     for line in release_notes.splitlines():
         line = line.strip()  # Remove leading/trailing whitespace
-
+        
         # Check if the line starts with a bullet point
         if line.startswith("•"):
-            if current_note:  # If there's an existing note, save it first
-                formatted_notes.append(current_note.strip())
-                current_note = ""  # Reset for the new note
-            
-            # Remove the bullet point and any leading space
-            current_note = line[1:].strip()
+            # Combine lines that follow the bullet point into the last entry
+            if formatted_notes:  # If there's already a note, append to it
+                formatted_notes[-1] += ' ' + line[1:].strip()  # Remove the bullet point
+            else:
+                formatted_notes.append(line[1:].strip())  # Start a new note without the bullet point
         else:
-            if current_note:  # Continue the current note if it exists
-                current_note += ' ' + line  # Append the new line content
+            # If not a bullet point, just add the line as a new entry
+            formatted_notes.append(line)
 
-    # Append any remaining note after finishing the loop
-    if current_note:
-        formatted_notes.append(current_note.strip())
-
-    # Format the output to markdown bullet points
+    # Format the output to markdown bullet points without the bullet characters
     return '\n'.join(f"- {note}" for note in formatted_notes)
 
 def main():
