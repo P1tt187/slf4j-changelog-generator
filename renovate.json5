@@ -1,21 +1,21 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>P1tt187/renovate-config",
-    ":automergeAll",
-    ":skipStatusChecks"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'local>P1tt187/renovate-config',
+    ':automergeAll',
+    ':skipStatusChecks',
   ],
-  "customManagers": [
+  customManagers: [
     {
-      "customType": "regex",
-      "description": "Update slf4j version to trigger pipeline",
-      "fileMatch": [
-        "(^|\\/|\\.)VERSION"
+      customType: 'regex',
+      description: 'Update slf4j version to trigger pipeline',
+      managerFilePatterns: [
+        '/(^|\\/|\\.)VERSION/',
       ],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>.+?)(?: (?:packageName|lookupName)=(?<packageName>.+?))?(?: versioning=(?<versioning>[a-z-]+?))?\\s.+?_VERSION=[\"'](?<currentValue>.+?)[\"']",
+      matchStrings: [
+        '# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>.+?)(?: (?:packageName|lookupName)=(?<packageName>.+?))?(?: versioning=(?<versioning>[a-z-]+?))?\\s.+?_VERSION=["\'](?<currentValue>.+?)["\']',
       ],
-      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
-    }
-  ]
+      versioningTemplate: '{{#if versioning}}{{versioning}}{{else}}semver{{/if}}',
+    },
+  ],
 }
